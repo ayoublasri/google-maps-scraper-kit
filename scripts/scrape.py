@@ -195,17 +195,22 @@ def main():
 
     print("▶ Polling…")
     status = None
-    for i in range(120):
+    # Poll long enough for the job's own time budget, plus margin for queueing
+    # (e.g. a previous job still running) and result finalization.
+    attempts = max(120, (a.max_time + 600) // 8)
+    for i in range(attempts):
         _, raw = req("GET", f"/api/v1/jobs/{job_id}")
         status = json.loads(raw).get("Status")
-        print(f"\r  status: {str(status):<10} (attempt {i + 1})", end="", flush=True)
+        print(f"\r  status: {str(status):<10} (attempt {i + 1}/{attempts})", end="", flush=True)
         if status == "ok":
             print(); break
         if status == "failed":
-            sys.exit("\n✗ Job failed. If this keeps happening you may be rate-limited — wait or add proxies.")
+            sys.exit("\n✗ Job failed. If this keeps happening you may be rate-limited — wait or add proxies.\n"
+                     "  ('docker logs gmaps-scraper' shows the real error, e.g. no internet from the container.)")
         time.sleep(8)
     else:
-        sys.exit("\n✗ Timed out.")
+        sys.exit(f"\n✗ Timed out waiting, but job {job_id} may still be running. Check it later with:\n"
+                 f"  curl -s {BASE}/api/v1/jobs/{job_id}   # then GET …/jobs/{job_id}/download once Status is \"ok\"")
 
     _, raw = req("GET", f"/api/v1/jobs/{job_id}/download")
     rows = list(csv.DictReader(io.StringIO(raw.decode("utf-8", "replace"))))

@@ -11,6 +11,12 @@
 #     --keyword "salon de beauté Témara" --keyword "institut de beauté Témara" \
 #     --depth 5 --max-time 900 --socials --out temara.csv
 #
+# NOTE — where to run this: the scraper needs real egress to Google (www.google.com)
+# and, on first start, the Playwright CDNs (playwright.azureedge.net). Email/--socials
+# additionally visit each business's own website (arbitrary domains). A normal local
+# machine works out of the box; a sandboxed cloud session only works if its network
+# policy allows those domains (effectively: unrestricted egress).
+#
 # Keywords (all six, if you prefer a single batch job with --city "Rabat, Morocco"):
 salon de coiffure Rabat
 salon de beauté Rabat
