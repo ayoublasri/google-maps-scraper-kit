@@ -11,6 +11,10 @@
 #     --keyword "salon de beauté Témara" --keyword "institut de beauté Témara" \
 #     --depth 5 --max-time 900 --socials --out temara.csv
 #
+# Then merge both runs into one deduped, city-tagged lead list:
+#
+#   python3 scripts/merge_leads.py rabat.csv temara.csv -o beauty-salon-leads.csv
+#
 # NOTE — where to run this: the scraper needs real egress to Google (www.google.com)
 # and, on first start, the Playwright CDNs (playwright.azureedge.net). Email/--socials
 # additionally visit each business's own website (arbitrary domains). A normal local
