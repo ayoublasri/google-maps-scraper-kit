@@ -1,0 +1,20 @@
+# Beauty / hair salon lead-gen — Rabat & Témara (Morocco).
+# French terms: that's what these businesses list under on Google Maps in Morocco.
+# Best run as TWO jobs (one per city) so each is geo-anchored on its own center
+# (Rabat 34.0209,-6.8416 · Témara 33.9266,-6.9062 — ~12 km apart, radius is 10 km):
+#
+#   python3 scripts/scrape.py "salon de coiffure Rabat" 34.0209 -6.8416 \
+#     --keyword "salon de beauté Rabat" --keyword "institut de beauté Rabat" \
+#     --depth 5 --max-time 900 --socials --out rabat.csv
+#
+#   python3 scripts/scrape.py "salon de coiffure Témara" 33.9266 -6.9062 \
+#     --keyword "salon de beauté Témara" --keyword "institut de beauté Témara" \
+#     --depth 5 --max-time 900 --socials --out temara.csv
+#
+# Keywords (all six, if you prefer a single batch job with --city "Rabat, Morocco"):
+salon de coiffure Rabat
+salon de beauté Rabat
+institut de beauté Rabat
+salon de coiffure Témara
+salon de beauté Témara
+institut de beauté Témara
